@@ -83,14 +83,8 @@ function sortearAmigo() {// Esta funcion elige un solo objeto aleatoriamente de 
     switch (tamañoEquipo) {
         case 1:
             // Barajar aleatoriamente la lista completa y mostrarla
-            mezclarArrayEnSitio(amigos);
-            mostrarLista();
-            const resultado1 = document.getElementById('resultado');
-            if (resultado1) {
-                resultado1.innerHTML = '<li>Lista reordenada aleatoriamente (equipos de 1)</li>';
-            }
+            renderizarGrupos(crearGrupos(1), 1);
             break;
-
         case 2:
             renderizarGrupos(crearGrupos(2), 2);
             break;
