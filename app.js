@@ -80,25 +80,7 @@ function sortearAmigo() {// Esta funcion elige un solo objeto aleatoriamente de 
         alert("Selecciona un tamaño de equipo.");
         return;
     }
-    switch (tamañoEquipo) {
-        case 1:
-            // Barajar aleatoriamente la lista completa y mostrarla
-            renderizarGrupos(crearGrupos(1), 1);
-            break;
-        case 2:
-            renderizarGrupos(crearGrupos(2), 2);
-            break;
-        case 3:
-            renderizarGrupos(crearGrupos(3), 3);
-            break;
-        case 4:
-            renderizarGrupos(crearGrupos(4), 4);
-            break;
-        default:
-            alert("Tamaño de equipo no válido.");
-            return;
-    }
-  
+    renderizarGrupos(crearGrupos(tamañoEquipo), tamañoEquipo); 
 };
 
 // Algoritmo de Fisher–Yates para mezclar un array in-place
