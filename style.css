@@ -33,11 +33,22 @@ body {
 
 /* Banner */
 .header-banner {
-    flex: 40%;
+    height: 25vh;
+    min-height: 120px;
+    max-height: 15vh;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 40px 0 0;
+    padding: 20px 0 0;
+    overflow: hidden;
+}
+/* Limita el tamaño de la imagen dentro del header */
+.header-banner img {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
 }
 
 /* Sección de entrada */

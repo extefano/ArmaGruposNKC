@@ -14,8 +14,8 @@
 <body>
     <main class="main-content">
         <header class="header-banner">
-            <h1 class="main-title">Amigo Secreto</h1>
-            <img src="assets/amigo-secreto.png" alt="Imagen representativa de amigo secreto">
+            <h1 class="main-title">Sorteo de Equipos</h1>
+            <img src="assets/grupo-image.webp" alt="Imagen representativa de grupo de amigos">
         </header>
         
         <section class="input-section">
@@ -28,11 +28,21 @@
             <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
             <ul id="resultado" class="result-list" aria-live="polite"></ul>
 
+
             <div class="button-container">
-                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
+                <select id="teamSizeSelect" class="team-size-select" style="font-size:1.2em; margin-top:10px;">
+                    <option value="" disabled selected>Selecciona el tamaño del equipo</option>
+                    <option value="1" onclick="actualizarTamañoEquipo(1)">Equipos de 1 integrante</option>
+                    <option value="2" onclick="actualizarTamañoEquipo(2)">Equipos de 2 integrantes</option>
+                    <option value="3" onclick="actualizarTamañoEquipo(3)">Equipos de 3 integrantes</option>
+                    <option value="4" onclick="actualizarTamañoEquipo(4)">Equipos de 4 integrantes</option>
+                </select>
+  
+                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear equipos">
                     <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
-                    Sortear amigo
+                    Sortear equipos
                 </button>
+
                 <button class="button-clear" onclick="limpiarLista()" aria-label="Limpiar lista de amigos">
                     
                     Limpiar lista
