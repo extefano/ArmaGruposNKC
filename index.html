@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/ff043987-239b-4661-bdb1-7f4ca6092c48.png"> <!-- el favicon --> 
     <title>Armado de Equipos</title>
 </head>
@@ -15,46 +12,57 @@
     <main class="main-content">
         <header class="header-banner">
             <h1 class="main-title">Sorteo de Equipos</h1>
-            <img src="assets/grupo-image.webp" alt="Imagen representativa de grupo de amigos">
+            <img src="assets/grupo-image.png" alt="Imagen representativa de grupo de amigos">
         </header>
         
         <section class="input-section">
-            <h2 class="section-title">Digite el nombre de sus amigos</h2>
-            <div class="input-wrapper">
-                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
-                <button class="button-add" onclick="agregarAmigo()">Añadir</button>
-            </div>
-           
-            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
-
-
-            <div class="button-container">
-                <select id="teamSizeSelect" class="team-size-select" style="font-size:1.2em; margin-top:10px;">
-                    <option value="" disabled selected>Selecciona el tamaño del equipo</option>
-                    <option value="1" onclick="actualizarTamañoEquipo(1)">Equipos de 1 integrante</option>
-                    <option value="2" onclick="actualizarTamañoEquipo(2)">Equipos de 2 integrantes</option>
-                    <option value="3" onclick="actualizarTamañoEquipo(3)">Equipos de 3 integrantes</option>
-                    <option value="4" onclick="actualizarTamañoEquipo(4)">Equipos de 4 integrantes</option>
-                    <option value="5" onclick="actualizarTamañoEquipo(5)">Equipos de 5 integrantes</option>
-                    <option value="6" onclick="actualizarTamañoEquipo(6)">Equipos de 6 integrantes</option>
-                    <option value="7" onclick="actualizarTamañoEquipo(7)">Equipos de 7 integrantes</option>
-                    <option value="8" onclick="actualizarTamañoEquipo(8)">Equipos de 8 integrantes</option>
-                    <option value="9" onclick="actualizarTamañoEquipo(9)">Equipos de 9 integrantes</option>
-                    <option value="10" onclick="actualizarTamañoEquipo(10)">Equipos de 10 integrantes</option>
-                    <option value="11" onclick="actualizarTamañoEquipo(11)">Equipos de 11 integrantes</option>
-                    <option value="12" onclick="actualizarTamañoEquipo(12)">Equipos de 12 integrantes</option>                    
-                </select>
-  
-                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear equipos">
-                    <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
-                    Sortear equipos
-                </button>
-
-                <button class="button-clear" onclick="limpiarLista()" aria-label="Limpiar lista de amigos">
+            <div class="input-container">
+                <div class="top">
+                    <h2 class="section-title">Digite el nombre de sus amigos</h2>
+                    <div class="input-wrapper">
+                        <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
+                        <button class="button-add" onclick="agregarAmigo()">Añadir</button>
+                    </div>
                     
-                    Limpiar lista
-                </button>
+                    <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>    
+                </div>
+                
+                <div class="bottom">
+                    <div id="resultado-card" class="hidden">
+                        <span id="resultado-title"></span>
+                        <ul id="resultado" class="result-list" aria-live="polite"></ul>
+                    </div>
+
+                    <div class="button-container">
+                        <!--  on change hace un switch agarrando el option  y lo mete en actualizar tamañoEquipo.-->
+                        <select id="teamSizeSelect" onchange="actualizarTamañoEquipo(this.value)" class="team-size-select">
+                            <option value="" disabled selected>Selecciona el tamaño del equipo</option>
+                            <option value="1">Equipos de 1 integrante</option>
+                            <option value="2">Equipos de 2 integrantes</option>
+                            <option value="3">Equipos de 3 integrantes</option>
+                            <option value="4">Equipos de 4 integrantes</option>
+                            <option value="5">Equipos de 5 integrantes</option>
+                            <option value="6">Equipos de 6 integrantes</option>
+                            <option value="7">Equipos de 7 integrantes</option>
+                            <option value="8">Equipos de 8 integrantes</option>
+                            <option value="9">Equipos de 9 integrantes</option>
+                            <option value="10">Equipos de 10 integrantes</option>
+                            <option value="11">Equipos de 11 integrantes</option>
+                            <option value="12">Equipos de 12 integrantes</option>                    
+                        </select>
+    
+                        <div class="buttons">
+                            <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear equipos">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-play-icon lucide-circle-play"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"/><circle cx="12" cy="12" r="10"/></svg>
+                                Sortear
+                            </button>
+                            <button class="button-clear" onclick="limpiarLista()" aria-label="Limpiar lista de amigos">
+                                Limpiar lista
+                            </button>
+                        </div>
+                    </div>
+    
+                </div>
             </div>
         </section>
     </main>
