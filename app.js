@@ -1,6 +1,7 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
-let amigos = []; // Array para almacenar los nombres de los amigos
+// Cargar la lista de amigos desde localStorage si existe
+let amigos = JSON.parse(localStorage.getItem('amigos')) || [];
 let tamañoEquipo = null; // Tamaño del equipo seleccionado
 
 function agregarAmigo() { // Esta función se ejecuta al hacer clic en el botón "Agregar Amigo"
@@ -8,6 +9,8 @@ function agregarAmigo() { // Esta función se ejecuta al hacer clic en el botón
     const nombre = input.value.trim();
     if (nombre) {// Verificamos que el nombre no esté vacío
         amigos.push (nombre);
+    // Guardar la lista actualizada en localStorage
+    localStorage.setItem('amigos', JSON.stringify(amigos));
         mostrarLista();
         input.value = ''; // Limpiamos el campo de entrada
     }
@@ -20,6 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
             agregarAmigo();
         }
     });
+
+    // Mostrar la lista de amigos al cargar la página si hay datos
+    if (amigos.length > 0) {
+        mostrarLista();
+    }
 
     // Vincula el selector de tamaño de equipo
     const select = document.getElementById('teamSizeSelect');
@@ -37,12 +45,14 @@ function mostrarLista() {
     lista.innerHTML =''; // Limpiamos la lista antes de mostrar los amigos
     amigos.forEach((amigo, index) => {
         const li = document.createElement('li');
+        li.classList.add('lista-amigos-item');
         li.textContent = amigo;
         // Botón eliminar
         const btnEliminar = document.createElement('button');
-        btnEliminar.textContent = 'Eliminar';
-        btnEliminar.className = 'button-delete';
-        btnEliminar.style.marginLeft = '10px';
+        
+        btnEliminar.classList.add('button-delete');
+        btnEliminar.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+
         btnEliminar.onclick = function() {
             eliminarAmigo(index);
         };
@@ -53,21 +63,30 @@ function mostrarLista() {
 
 function eliminarAmigo(index) {
     amigos.splice(index, 1);
+    // Actualizar localStorage después de eliminar
+    localStorage.setItem('amigos', JSON.stringify(amigos));
     mostrarLista();
 }
 
 function limpiarLista() {// Esta funcion limpia la lista de amigos y el dom
     amigos = []; // Reiniciamos el array de amigos
+    localStorage.removeItem('amigos'); // Eliminar de localStorage
     const lista = document.getElementById("listaAmigos"); // Obtenemos el elemento de la lista del DOM
     lista.innerHTML = ''; // Limpiamos la lista en el DOM
 };
 
 actualizarTamañoEquipo = (nuevoTamaño) => {
     tamañoEquipo = nuevoTamaño;
-    const resultado = document.getElementById("resultado");
-    resultado.innerHTML = `<li style='color:limegreen;font-weight:bold;font-size:2em;'>Seleccionaste equipos de ${nuevoTamaño} integrantes</li>`;
+    // const resultado = document.getElementById("resultado");
+    // const textoSeleccion = document.createElement('li');
+    // textoSeleccion.textContent = `Seleccionaste equipos de ${nuevoTamaño} integrantes`;
+    // textoSeleccion.classList.add('texto-seleccion');
+    
+    // resultado.appendChild(textoSeleccion);
+
+    // resultado.innerHTML = `<li style='color:limegreen;font-weight:bold;font-size:2em;'>Seleccionaste equipos de ${nuevoTamaño} integrantes</li>`;
     // Agrega también al HTML una referencia visual del tamaño seleccionado
-    const equipoInfo = document.getElementById("equipoInfo");
+    // const equipoInfo = document.getElementById("equipoInfo");
 
 };
 function sortearAmigo() {// Esta funcion elige un solo objeto aleatoriamente de la lista de amigos y devuelve en el dom
@@ -104,16 +123,24 @@ function crearGrupos(size) {
 
 // Pinta los grupos en el UL de resultado
 function renderizarGrupos(grupos, size) {
-    const resultado = document.getElementById('resultado');
-    if (!resultado) return;
-    resultado.innerHTML = '';
+    const resultadoCard = document.getElementById('resultado-card');
+    if (!resultadoCard) return;
+    resultadoCard.style.display = 'flex';
+
+    const tituloResultado = document.getElementById('resultado-title');
+    if (!tituloResultado) return;
     // Mensaje encabezado
-    const header = document.createElement('li');
-    header.textContent = `Equipos de ${size} integrantes`;
-    resultado.appendChild(header);
+    tituloResultado.textContent = `Equipos de ${size} integrantes`;
+
+    // Lista de equipos
+    const listaEquipos = document.getElementById('resultado');
+    if (!listaEquipos) return;
+    listaEquipos.innerHTML = '';
+
     grupos.forEach((equipo, idx) => {
         const li = document.createElement('li');
-        li.textContent = `Equipo ${idx + 1}: ${equipo.join(', ')}`;
-        resultado.appendChild(li);
+        li.classList.add('resultado-item');
+        li.textContent = `${equipo.join(', ')}`;
+        listaEquipos.appendChild(li);
     });
 }
